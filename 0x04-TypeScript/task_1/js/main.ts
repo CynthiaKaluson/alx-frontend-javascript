@@ -1,74 +1,46 @@
-/**
- * Task 1 - Teacher interface + supporting exercises
- */
+// main.ts
 
-/* Teacher interface:
- * - firstName, lastName readonly (only set at initialization)
- * - fullTimeEmployee: required
- * - yearsOfExperience?: optional
- * - location: required
- * - allow arbitrary extra props (index signature)
- */
-interface Teacher {
-  readonly firstName: string;
-  readonly lastName: string;
-  fullTimeEmployee: boolean;
-  yearsOfExperience?: number;
-  location: string;
-  [key: string]: any;
+// 1. Function to display a message
+export function displayMessage(message: string): void {
+  console.log(message);
 }
 
-const teacher3: Teacher = {
-  firstName: 'John',
-  lastName: 'Doe',
-  fullTimeEmployee: false,
-  location: 'London',
-  contract: false
-};
-
-console.log('teacher3:', teacher3);
-
-/* Directors extending Teacher */
-interface Directors extends Teacher {
-  numberOfReports: number;
-}
-
-const director1: Directors = {
-  firstName: 'John',
-  lastName: 'Doe',
-  location: 'London',
-  fullTimeEmployee: true,
-  numberOfReports: 17
-};
-
-console.log('director1:', director1);
-
-/* printTeacher function and its interface */
-interface PrintTeacherFunction {
-  (firstName: string, lastName: string): string;
-}
-
-const printTeacher: PrintTeacherFunction = (firstName, lastName) => {
-  return \`\${firstName.charAt(0)}. \${lastName}\`;
-};
-
-console.log('printTeacher:', printTeacher('John', 'Doe'));
-
-/* StudentClass and corresponding interfaces */
-interface StudentConstructor {
+// 2. Create a student interface
+interface Student {
   firstName: string;
   lastName: string;
+  age: number;
+  location: string;
 }
 
-class StudentClass implements StudentConstructor {
-  constructor(public firstName: string, public lastName: string) {}
-  workOnHomework(): string {
-    return 'Currently working';
-  }
-  displayName(): string {
-    return this.firstName;
-  }
-}
+// 3. Create two students
+const student1: Student = {
+  firstName: "Cynthia",
+  lastName: "Kalu",
+  age: 25,
+  location: "Nigeria",
+};
 
-const student = new StudentClass('Jane', 'Doe');
-console.log('student:', student.displayName(), '|', student.workOnHomework());
+const student2: Student = {
+  firstName: "James",
+  lastName: "Okorie",
+  age: 27,
+  location: "Lagos",
+};
+
+// 4. Create an array of students
+const studentsList: Student[] = [student1, student2];
+
+// 5. Render table
+const table = document.createElement("table");
+const headerRow = table.insertRow();
+headerRow.innerHTML = "<th>First Name</th><th>Location</th>";
+
+studentsList.forEach((student) => {
+  const row = table.insertRow();
+  row.insertCell().textContent = student.firstName;
+  row.insertCell().textContent = student.location;
+});
+
+document.body.appendChild(table);
+
